@@ -3,7 +3,7 @@
 # All 2.x and 3.x features supported
 # version: '2'
 # NOTE: move this answer file up a directory so it'll work
-version: 3.1
+version: '3.1'
 
 services:
 
@@ -20,10 +20,8 @@ services:
   postgres:
     image: postgres:14.3
     environment:
-      - POSTGRES_USER_FILE= /run/secrets/secret_pg_user
-      - POSTGRES_PASSWORD_FILE= /run/secrets/secret_pg_pass
+      - POSTGRES_PASSWORD_FILE=/run/secrets/secret_pg_pass
     secrets:
-      - secret_pg_user
       - secret_pg_pass
     volumes:
       - drupal-data:/var/lib/postgresql/data
@@ -36,8 +34,5 @@ volumes:
   drupal-themes:
 
 secrets:
-  secret_pg_user:
-    external: true
   secret_pg_pass:
-    file: ./password.txt
-
+    external: true
